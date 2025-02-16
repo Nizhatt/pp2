@@ -78,13 +78,11 @@ movies = [
 }
 ]
 
-def second(movies):
-    ar=[]
-    for mov in movies:
-        if mov['imdb']>5.5:
-            ar.append(mov['name'])
-    return ar
-print(second(movies))
-print()
-print()
-print()
+def third(movies):
+    cat=input("CATEGORY: ")
+    mydict={cat:[]}
+    for film in movies:
+        if film['category']==cat:
+            mydict[cat].append(film['name'])
+    return mydict
+print(third(movies))
