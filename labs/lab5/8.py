@@ -1,4 +1,4 @@
 import re
-text = input()
+text = "HeLLoWorldThisIsPython"
 pattern = r'[A-Z]+'
 result = re.split(pattern, text)
