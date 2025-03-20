@@ -1,18 +1,17 @@
-# Write a Python program to list only directories, files and all directories, files in a specified path.
 import os
-path=r'C:\pathforpp2'
-content = os.scandir(path)
-dirs=[]
-files=[]
-fd=[]
-for entry in content:
-    if entry.is_file():
-        files.append(entry.name)
-    if entry.is_dir():
-        dirs.append(entry.name)
-    fd.append(entry.name)
-print("Folders: ", dirs)
-print("-------------------")
-print("Files: ", files)
-print("-------------------")
-print("Files and Folders: ", fd)
+
+path = r"C:\Users\LENOVO\Desktop\pp2\labs\lab6"
+
+contents_of_the_path = os.scandir(path)
+files = []
+dirs = []
+
+for content in contents_of_the_path:
+    if content.is_file():
+        files.append(content.name)
+    elif content.is_dir():
+        dirs.append(content.name)
+
+print(f"Files: {files}")
+print(f"Dirs: {dirs}")
+print(f"Total: {files + dirs}")
