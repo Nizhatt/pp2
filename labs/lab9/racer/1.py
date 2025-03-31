@@ -16,17 +16,17 @@ FPS = 60
 clock = pygame.time.Clock()
 
 # Upload resources 
-image_background = pygame.image.load('labs/lab8/racer/AnimatedStreet.png')
+image_background = pygame.image.load('labs/lab9/racer/resources/AnimatedStreet.png')
 image_background = pygame.transform.scale(image_background, (WIDTH, HEIGHT))
 
 # coin
-image_coin = pygame.image.load('labs/lab8/racer/Coin.png')
+image_coin = pygame.image.load('labs/lab9/racer/resources/coin.jpg')
 image_coin = pygame.transform.scale(image_coin, (30, 30))
 
 # background music
-pygame.mixer.music.load('labs/lab8/racer/background.wav')
+pygame.mixer.music.load('labs/lab9/racer/resources/lab8_background.wav')
 pygame.mixer.music.play(-1)
-sound_crash = pygame.mixer.Sound('labs/lab8/racer/crash.wav')
+sound_crash = pygame.mixer.Sound('labs/lab9/racer/resources/lab8_crash.wav')
 
 # Font
 font_big = pygame.font.SysFont("Verdana", 60)
@@ -39,7 +39,7 @@ SPEED = 5
 class Enemy(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.image = pygame.image.load('labs/lab8/racer/Enemy.png')
+        self.image = pygame.image.load('labs/lab9/racer/resources/Enemy.png')
         self.rect = self.image.get_rect(center=(random.randint(50, WIDTH - 50), -100))
         self.speed = 8
 
@@ -52,7 +52,7 @@ class Enemy(pygame.sprite.Sprite):
 class Player(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.image = pygame.image.load('labs/lab8/racer/Player.png')
+        self.image = pygame.image.load('labs/lab9/racer/resources/Player.png')
         self.rect = self.image.get_rect(center=(WIDTH // 2, 500))
 
     def move(self):
@@ -69,6 +69,7 @@ class Coin(pygame.sprite.Sprite):
         self.image = image_coin
         self.rect = self.image.get_rect(center=(random.randint(30, WIDTH - 30), -50))
         self.speed = 4
+        self.value = random.choice([1,2,3]) # coin value
 
     def move(self):
         self.rect.move_ip(0, self.speed)
@@ -149,7 +150,12 @@ def run_game():
 
         # Coin collection
         coins_got = pygame.sprite.spritecollide(player, coin_sprites, True)
-        coins_collected += len(coins_got)
+        for coin in coins_got:
+            coins_collected += coin.value
+
+        # Increase speed every 10 coins
+        if coins_collected % 10 == 0 and coins_got:
+            SPEED += 0.8
 
         coin_text = font_big.render(str(coins_collected), True, 'white')
         screen.blit(coin_text, (10, 10))

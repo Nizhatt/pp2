@@ -10,7 +10,7 @@ CELL = 30
 FPS_START = 5.5
 
 # Sounds
-sound_eating = pygame.mixer.Sound('labs/lab8/snake/eating.mp3')
+sound_eating = pygame.mixer.Sound('labs/lab9/snake/eating.mp3')
 sound_eating.set_volume(0.1)
 
 
